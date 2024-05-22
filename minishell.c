@@ -14,7 +14,6 @@ void    minishell(char **envp)
             break ;
         if (ft_strcmp(line, "cd") == 0)
             chdir(line);
-
     }
 }
 int	main(int argc, char **argv, char **envp)
@@ -22,7 +21,9 @@ int	main(int argc, char **argv, char **envp)
 
     (void)argc;
     (void)argv;
+	minishell(env);
 
     return (0);
 }
+
 
