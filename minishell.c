@@ -2,8 +2,9 @@
 
 void    minishell(char **envp)
 {
-    char    *line;
-
+    char    	*line;
+	t_envlist	*list;
+	
     while (1)
     {
         line = readline("minishell$ ");
@@ -21,9 +22,10 @@ int	main(int argc, char **argv, char **envp)
 
     (void)argc;
     (void)argv;
-	minishell(env);
+	minishell(envp);
 
     return (0);
 }
+
 
 
