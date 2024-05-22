@@ -1,8 +1,8 @@
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 void    minishell(char **envp)
 {
-    char    *line;
+	char    *line;
 	(void)envp;
 
     while (1)
