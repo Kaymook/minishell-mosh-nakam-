@@ -16,7 +16,7 @@
 # include <readline/history.h>
 # include "libft/libft.h"
 
-struct s_envlist 
+typedef struct s_envlist 
 {
 	char				*env;
 	char				*value;
