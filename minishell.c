@@ -3,6 +3,7 @@
 void    minishell(char **envp)
 {
     char    *line;
+	(void)envp;
 
     while (1)
     {
@@ -10,9 +11,9 @@ void    minishell(char **envp)
         if (line == NULL)
             break ;
         add_history(line);
-        if (ft_strcmp(line, "exit") == 0)
+        if (ft_strncmp(line, "exit", 4) == 0)
             break ;
-        if (ft_strcmp(line, "cd") == 0)
+        if (ft_strncmp(line, "cd", 2) == 0)
             chdir(line);
     }
 }
