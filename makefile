@@ -17,7 +17,16 @@ all: $(MINISHELL)
 $(MINISHELL):
 	@make -C ./libft
 	@gcc $(CFLAGS) $(FILES) $(LIBS) ./libft/libft.a  -o $(MINISHELL)
-	@echo "Success!"
+	@printf "\033[31mS\033[0m"
+	@printf "\033[33mU\033[0m"
+	@printf "\033[32mC\033[0m"
+	@printf "\033[36mC\033[0m"
+	@printf "\033[34mE\033[0m"
+	@printf "\033[35mS\033[0m"
+	@printf "\033[31mS\033[0m"
+	@printf "\033[33m!\033[0m"
+	@printf "\033[32m!\033[0m"
+	@echo "\n"
 
 clean:
 	make -C ./libft clean
@@ -29,5 +38,4 @@ fclean: clean
 re: fclean all
 
 run: re
-	@echo ""
 	@./minishell
