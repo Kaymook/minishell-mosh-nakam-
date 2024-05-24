@@ -6,7 +6,7 @@
 /*   By: shonakam <shonakam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:57:54 by mosh              #+#    #+#             */
-/*   Updated: 2024/05/25 00:19:11 by shonakam         ###   ########.fr       */
+/*   Updated: 2024/05/25 01:05:46 by shonakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,24 +67,26 @@ void minishell(char **envp)
 	{
 		line = readline("minishell$ ");
 		if (line == NULL)
-			break;
+			break ;
 		add_history(line);
 		t_token **t = ft_lexer(line);
-
+		if (t == NULL)
+			break ;
 		// print tokens
 		for (size_t i=0; t[i]; i++) {
 			printf("count: %zu | type is: %u | word is: %s\n",i, t[i]->type, t[i]->word);
 		}
 		if (ft_strncmp(line, "exit", 4) == 0)
-			break;
+			exit(0);
 		// if (ft_strcmp(line, "cd") == 0)
 		// 	chdir(line);
 	}
+	// leakの解消が必要
+	minishell(envp);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-
 	(void)argc;
 	(void)argv;
 	minishell(envp);
