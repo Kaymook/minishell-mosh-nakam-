@@ -8,4 +8,6 @@ typedef struct s_ast_node {
     struct s_ast_node	*right;
 }				t_ast_node;
 
+t_ast_node *parse_pipeline(t_token **tokens);
+
 #endif

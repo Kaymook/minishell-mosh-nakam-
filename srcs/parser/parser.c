@@ -6,11 +6,12 @@
 /*   By: mosh <mosh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:52:47 by mosh              #+#    #+#             */
-/*   Updated: 2024/05/25 01:30:55 by mosh             ###   ########.fr       */
+/*   Updated: 2024/05/25 02:29:33 by mosh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "ast.h"
 
 int count_tokens(t_token **tokens)
 {

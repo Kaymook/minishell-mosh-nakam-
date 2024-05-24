@@ -5,7 +5,7 @@ RPATH :=  -L/opt/homebrew/opt/readline/lib -lreadline
 SRC_PATH := ./srcs/
 FLAGS := -Wall -Werror -Wextra
 HEADERS := -I$(SRC_PATH)includes
-LIBS := $(RPATH) -L$(PWD)/libft
+LIBS := $(RPATH) -L$(PWD)/srcs/libft
 CFLAGS := $(FLAGS) $(HEADERS)
 # get argument list max size
 ARGUMENT_SIZE := $(shell expr $(shell getconf ARG_MAX) / 8)

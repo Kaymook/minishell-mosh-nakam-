@@ -3,85 +3,128 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shonakam <shonakam@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: mosh <mosh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:57:54 by mosh              #+#    #+#             */
-/*   Updated: 2024/05/25 00:19:11 by shonakam         ###   ########.fr       */
+/*   Updated: 2024/05/25 01:52:41 by mosh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	set_envlist(t_envlist *new, char *env)
-{
-	char	*var;
-	char	*value;
-	char	*where_equal;
-	size_t	key_len;
 
-	where_equal = ft_strchr(env, '=');
-	key_len = where_equal - env;
-	var = ft_substr(env, 0, key_len);
-	value = ft_substr(env, key_len + 1, ft_strlen(new) - key_len - 1);
-	new->env_var = var;
-	new->value = value;
+#include "minishell.h"
+#include <stdio.h>
+
+void print_ast(t_ast_node *node, int level)
+{
+    if (node == NULL)
+        return;
+
+    for (int i = 0; i < level; i++)
+        printf("  ");
+
+    if (node->nodetype == NODE_COMMAND)
+        printf("Command: ");
+    else if (node->nodetype == NODE_PIPELINE)
+        printf("Pipeline: ");
+
+    if (node->args)
+    {
+        printf("Args: ");
+        for (int i = 0; node->args[i] != NULL; i++)
+            printf("'%s' ", node->args[i]);
+    }
+    printf("\n");
+
+    print_ast(node->left, level + 1);
+    print_ast(node->right, level + 1);
 }
 
-t_envlist *make_new_envlist(t_envlist *head, char *env)
-{
-	t_envlist *new;
+// void	set_envlist(t_envlist *new, char *env)
+// {
+// 	char	*var;
+// 	char	*value;
+// 	char	*where_equal;
+// 	size_t	key_len;
+
+// 	where_equal = ft_strchr(env, '=');
+// 	key_len = where_equal - env;
+// 	var = ft_substr(env, 0, key_len);
+// 	value = ft_substr(env, key_len + 1, ft_strlen(new->) - key_len - 1);
+// 	new->env_var = var;
+// 	new->value = value;
+// }
+
+// t_envlist *make_new_envlist(t_envlist *head, char *env)
+// {
+// 	t_envlist *new;
 	
-	new = (t_envlist*)malloc(sizeof (*new));
-	set_envlist(new, env);
-	head->next = new;
-	return (new);
+// 	new = (t_envlist*)malloc(sizeof (*new));
+// 	set_envlist(new, env);
+// 	head->next = new;
+// 	return (new);
 	
-}
+// }
 
-t_envlist *make_envlist(char **envp)
-{
-	t_envlist *head;
-	t_envlist list;
-	int i;
+// t_envlist *make_envlist(char **envp)
+// {
+// 	t_envlist *head;
+// 	t_envlist list;
+// 	int i;
 
-	head = &list;
-	i = 0;
-	if (envp[i] == NULL)
-		return (NULL);
-	while (envp[i])
-	{
-		head = make_new_envlist(head, envp[i++]);
-	}
-	return (list.next);
-}
+// 	head = &list;
+// 	i = 0;
+// 	if (envp[i] == NULL)
+// 		return (NULL);
+// 	while (envp[i])
+// 	{
+// 		head = make_new_envlist(head, envp[i++]);
+// 	}
+// 	return (list.next);
+// }
 
 void minishell(char **envp)
 {
-	char 		*line;
-	t_envlist	*list;
+    char		*line;
+    t_token 	**tokens;
+    t_ast_node	*ast;
+	
+	// make_envlist(envp);
+	(void)envp;
+    while (1)
+    {
+        line = readline("minishell$ ");
+        if (line == NULL)
+            break;
+        if (strlen(line) > 0)
+            add_history(line);
+        tokens = ft_lexer(line);
+        if (tokens == NULL)
+        {
+            free(line);
+            continue;
+        }
+        ast = parse_pipeline(tokens);
+        if (ast == NULL)
+        {
+            // free_tokens(tokens);
+            free(line);
+            continue;
+        }
+		
+		// ASTの内容を表示するためのコードを追加
+        printf("AST Structure:\n");
+        print_ast(ast, 0);  // ASTを表示する関数を呼び出し
 
-	// (void)envp;
-	// (void)list;
-	list = make_envlist(envp);
-	while (1)
-	{
-		line = readline("minishell$ ");
-		if (line == NULL)
-			break;
-		add_history(line);
-		t_token **t = ft_lexer(line);
-
-		// print tokens
-		for (size_t i=0; t[i]; i++) {
-			printf("count: %zu | type is: %u | word is: %s\n",i, t[i]->type, t[i]->word);
-		}
-		if (ft_strncmp(line, "exit", 4) == 0)
-			break;
-		// if (ft_strcmp(line, "cd") == 0)
-		// 	chdir(line);
-	}
+        // コマンドの実行（この部分はプレースホルダー、実際の実行関数を呼び出す）
+        // execute_ast(ast, envp);
+        // リソースの解放
+        // free_tokens(tokens);
+        // free_ast(ast);
+        free(line);
+    }
 }
-
 int	main(int argc, char **argv, char **envp)
 {
 
