@@ -6,7 +6,7 @@
 /*   By: shonakam <shonakam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 22:25:51 by shonakam          #+#    #+#             */
-/*   Updated: 2024/05/24 19:40:24 by shonakam         ###   ########.fr       */
+/*   Updated: 2024/05/25 00:14:45 by shonakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,17 @@ void	extract_token(const char *line, t_token **toks, size_t pos, size_t c)
 		return ;
 	}
 	type = identify_metachar(line, pos);
+	token_size = 0u;
 	if (type == METACHAR_SINGLE_QUOTE)
 		token_size = (2 + get_token_size(line, (pos + 1), 1));
 	else if (type == METACHAR_DOUBLE_QUOTE)
 		token_size = (2 + get_token_size(line, (pos + 1), 2));
-	else
+	else if (type == METACHAR_NONE)
 		token_size = get_token_size(line, pos, 0);
+	else if (type == 4 || type == 5 || type == 10)
+		token_size = 2u;
+	else if (type == 1 || type == 2 || type == 3 || type == 8)
+		token_size = 1u;
 	toks[c] = create_token(type, line, pos, token_size);
 	pos += token_size;
 	extract_token(line, toks, pos, ++c);

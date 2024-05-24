@@ -6,7 +6,7 @@
 /*   By: shonakam <shonakam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:57:54 by mosh              #+#    #+#             */
-/*   Updated: 2024/05/24 19:30:50 by shonakam         ###   ########.fr       */
+/*   Updated: 2024/05/24 20:26:19 by shonakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,11 @@ void minishell(char **envp)
 			break;
 		add_history(line);
 		t_token **t = ft_lexer(line);
+
+		// print tokens
 		for (size_t i=0; t[i]; i++) {
 			printf("count: %zu | type is: %u | word is: %s\n",i, t[i]->type, t[i]->word);
 		}
-
-
 		if (ft_strncmp(line, "exit", 4) == 0)
 			break;
 		// if (ft_strcmp(line, "cd") == 0)
