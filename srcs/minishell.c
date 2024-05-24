@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mosh <mosh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: shonakam <shonakam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:57:54 by mosh              #+#    #+#             */
-/*   Updated: 2024/05/22 19:02:26 by mosh             ###   ########.fr       */
+/*   Updated: 2024/05/25 00:19:11 by shonakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void minishell(char **envp)
 	char 		*line;
 	t_envlist	*list;
 
+	// (void)envp;
+	// (void)list;
 	list = make_envlist(envp);
 	while (1)
 	{
@@ -67,8 +69,14 @@ void minishell(char **envp)
 		if (line == NULL)
 			break;
 		add_history(line);
-		// if (ft_strcmp(line, "exit") == 0)
-		// 	break;
+		t_token **t = ft_lexer(line);
+
+		// print tokens
+		for (size_t i=0; t[i]; i++) {
+			printf("count: %zu | type is: %u | word is: %s\n",i, t[i]->type, t[i]->word);
+		}
+		if (ft_strncmp(line, "exit", 4) == 0)
+			break;
 		// if (ft_strcmp(line, "cd") == 0)
 		// 	chdir(line);
 	}
