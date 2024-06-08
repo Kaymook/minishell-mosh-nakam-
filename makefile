@@ -5,7 +5,7 @@ RPATH :=  -L/opt/homebrew/opt/readline/lib -lreadline
 SRC_PATH := ./srcs/
 FLAGS := -Wall -Werror -Wextra
 HEADERS := -I$(SRC_PATH)includes
-LIBS := $(RPATH) -L$(PWD)/srcs/
+LIBS := $(RPATH) -L$(PWD)/libft
 CFLAGS := $(FLAGS) $(HEADERS)
 # get argument list max size
 ARGUMENT_SIZE := $(shell expr $(shell getconf ARG_MAX) / 8)
@@ -16,8 +16,7 @@ CFLAGS += -fsanitize=address
 
 SRC_LIST := minishell.c \
 			lexer/ft_lexer.c \
-			lexer/support.c \
-			parser/parser.c
+			lexer/support.c
 
 FILES := $(addprefix $(SRC_PATH), $(SRC_LIST))
 

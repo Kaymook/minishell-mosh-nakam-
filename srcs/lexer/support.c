@@ -27,3 +27,12 @@ int	ft_isspace(char c)
 		return (1);
 	return (0);
 }
+
+void	print_tokens(t_token **tokens)
+{
+	if (!tokens)
+		return ;
+	for (int i=0; tokens[i]; i++) {
+		printf("token[%d]: %s\n", i, tokens[i]->word);
+	}
+}
