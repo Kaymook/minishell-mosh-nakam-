@@ -6,22 +6,22 @@
 /*   By: shonakam <shonakam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 22:25:51 by shonakam          #+#    #+#             */
-/*   Updated: 2024/05/25 00:14:45 by shonakam         ###   ########.fr       */
+/*   Updated: 2024/05/25 01:04:55 by shonakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token	*create_token(TokenType type, const char *line, size_t pos, size_t size)
+static t_token	*create_token(TokenType t, const char *l, size_t p, size_t s)
 {
-	 t_token	*t;
+	t_token	*tok;
 
-	t = (t_token *)malloc(sizeof(t_token));
-	if (!t)
+	tok = (t_token *)malloc(sizeof(t_token));
+	if (!tok)
 		return (NULL);
-	t->type = type;
-	t->word	= ft_substr(line, pos, size);
-	return (t);
+	tok->type = t;
+	tok->word	= ft_substr(l, p, s);
+	return (tok);
 }
 
 static TokenType identify_metachar(const char *input, size_t pos)
@@ -47,7 +47,7 @@ static TokenType identify_metachar(const char *input, size_t pos)
 	return METACHAR_NONE;
 }
 
-size_t	get_token_size(const char *line, size_t posision, int flag)
+static size_t	get_token_size(const char *line, size_t posision, int flag)
 {
 	size_t	end;
 
@@ -93,7 +93,13 @@ void	extract_token(const char *line, t_token **toks, size_t pos, size_t c)
 t_token	**ft_lexer(char *line)
 {
 	t_token	**tokens;
-	
+
+	if (!valid_quote(line))
+	{
+		errno = EINVAL;
+		perror("minishell");
+		return (NULL);
+	}
 	tokens = (t_token **)malloc(ARGUMENT_SIZE * sizeof(t_token *));
 	if (!tokens)
 		return (NULL);
