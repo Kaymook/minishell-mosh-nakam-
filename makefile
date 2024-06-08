@@ -1,7 +1,7 @@
 MINISHELL = minishell
 # readlineのpathを指定してね
-RPATH :=  -L/opt/homebrew/opt/readline/lib -lreadline
-
+# RPATH :=  -L/opt/homebrew/opt/readline/lib -lreadline
+RPATH :=  -L/Users/gnu_bash/lib/readline -lreadline
 SRC_PATH := ./srcs/
 FLAGS := -Wall -Werror -Wextra
 HEADERS := -I$(SRC_PATH)includes

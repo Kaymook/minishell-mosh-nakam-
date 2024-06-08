@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mosh <mosh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:52:47 by mosh              #+#    #+#             */
-/*   Updated: 2024/05/25 02:29:33 by mosh             ###   ########.fr       */
+/*   Updated: 2024/06/08 17:30:37 by kmoshker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "ast.h"
+// #include "minishell.h"
+// #include "ast.h"
+#include "../includes/minishell.h"
+#include "../includes/ast.h"
 
 int count_tokens(t_token **tokens)
 {
