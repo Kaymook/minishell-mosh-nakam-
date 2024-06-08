@@ -11,9 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
-#include "minishell.h"
 #include <stdio.h>
 
 void print_ast(t_ast_node *node, int level)
