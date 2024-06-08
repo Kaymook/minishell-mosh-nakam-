@@ -6,7 +6,7 @@
 /*   By: shonakam <shonakam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 22:25:51 by shonakam          #+#    #+#             */
-/*   Updated: 2024/05/25 01:04:55 by shonakam         ###   ########.fr       */
+/*   Updated: 2024/06/08 19:12:59 by shonakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,11 @@ static size_t	get_token_size(const char *line, size_t posision, int flag)
 
 	end = posision;
 	while (flag == 0 && line[end] && !ft_isspace(line[end]))
+	{
 		end++;
+		if (line[end] == '|')
+			break ;
+	}
 	while (flag == 1 && line[end] && line[end] != '\'')
 		end++;
 	while (flag == 2 && line[end] && line[end] != '"')
